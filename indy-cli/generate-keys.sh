@@ -115,6 +115,7 @@ fi
 # generate wallet encryption key
 wallet_key=$(pwgen -s 32 1)
 
+echo -e "\033[1;31mWallet key:\033[0m $wallet_key"
 
 #POOL_GENESIS_FILE=${POOL_GENESIS_FILE:-"pool_transactions_builder_genesis"}
 POOL_GENESIS_FILE=${POOL_GENESIS_FILE:-"ssi4de_pool_transactions_genesis"}

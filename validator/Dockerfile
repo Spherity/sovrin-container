@@ -14,6 +14,9 @@ RUN apt-get update && \
     mkdir -p /var/lib/indy/net3 && \
     curl -Ss -o /var/lib/indy/net3/domain_transactions_genesis https://raw.githubusercontent.com/sovrin-foundation/sovrin/master/sovrin/domain_transactions_builder_genesis && \
     curl -Ss -o /var/lib/indy/net3/pool_transactions_genesis https://raw.githubusercontent.com/sovrin-foundation/sovrin/master/sovrin/pool_transactions_builder_genesis && \
+    mkdir -p /var/lib/indy/ssi4de && \
+    curl -Ss -o /var/lib/indy/ssi4de/domain_transactions_genesis https://raw.githubusercontent.com/Echsecutor/docker-indy-node/master/lib_indy/ssi4de/domain_transactions_genesis && \
+    curl -Ss -o /var/lib/indy/ssi4de/pool_transactions_genesis https://raw.githubusercontent.com/Echsecutor/docker-indy-node/master/lib_indy/ssi4de/pool_transactions_genesis && \
     chown -R root: /var/lib/indy && \
     chmod +x /usr/local/bin/init-node && \
     chmod +x /usr/local/bin/entrypoint.sh

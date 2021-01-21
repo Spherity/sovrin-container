@@ -9,9 +9,10 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y indy-cli && \
     rm -rf /var/lib/apt/lists* && \
-    curl -OSs https://raw.githubusercontent.com/sovrin-foundation/sovrin/master/sovrin/pool_transactions_builder_genesis && \
-    curl -OSs https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis && \
-    curl -OSs https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_live_genesis && \
+    curl -OSsL https://raw.githubusercontent.com/sovrin-foundation/sovrin/master/sovrin/pool_transactions_builder_genesis && \
+    curl -OSsL https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_sandbox_genesis && \
+    curl -OSsL https://raw.githubusercontent.com/sovrin-foundation/sovrin/stable/sovrin/pool_transactions_live_genesis && \
+    curl -SsL -o ssi4de_pool_transactions_genesis https://raw.githubusercontent.com/Echsecutor/docker-indy-node/master/lib_indy/ssi4de/pool_transactions_genesis  && \
     mkdir -p /etc/indy-cli && \
     chmod +x /usr/local/bin/generate-keys
 

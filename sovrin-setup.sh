@@ -234,6 +234,17 @@ else
     $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/steward_seed:/root/.indy_client/steward_seed indy-cli generate-keys "$pool_name" "$wallet_name" --seed-path=/root/.indy_client/steward_seed "$verbose"
 fi
 
+echo -e "\n*** Trustee information ***"
+if [ -z "${trustee_seed+x}" ]; then
+    $engine run --rm -v $wallet_volume_name:/root/.indy_client indy-cli generate-keys "$pool_name" "$wallet_name" --trustee "$verbose"
+else
+    # pass the steward seed into the container
+    # using a file to do so hides it from the process list
+    echo "$trustee_seed" > "./trustee_seed"
+
+    $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/trustee_seed:/root/.indy_client/trustee_seed indy-cli generate-keys "$pool_name" "$wallet_name" --trustee --seed-path=/root/.indy_client/trustee_seed "$verbose"
+fi
+
 # check the exit code
 if [ ! $? -eq 0 ]; then
     print_error "failed to create wallet"

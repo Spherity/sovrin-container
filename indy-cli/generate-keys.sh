@@ -51,6 +51,11 @@ while true; do
             shift 2
             continue
             ;;
+        '-t'|'--trustee')
+            trustee=true
+            shift 2
+            continue
+            ;;
         '-v'|'--verbose')
             verbose=true
             shift
@@ -115,14 +120,25 @@ wallet_key=$(pwgen -s 32 1)
 POOL_GENESIS_FILE=${POOL_GENESIS_FILE:-"ssi4de_pool_transactions_genesis"}
 
 # save all indy commands in a batch file for noninteractive use in the cli
+
+if [ ! -z "${trustee+x}" ]; then
+cat << EOF >> batch_file
+pool connect $pool_name
+wallet open $wallet_name key=$wallet_key
+did new seed=$seed meta=TRUSTEE
+exit
+EOF
+else 
 cat << EOF >> batch_file
 pool create $pool_name gen_txn_file=$POOL_GENESIS_FILE
 wallet create $wallet_name key=$wallet_key
 pool connect $pool_name
 wallet open $wallet_name key=$wallet_key
-did new seed=$seed
+did new seed=$seed meta=STEWARD
 exit
 EOF
+
+fi
 
 echo "Generating keys..."
 

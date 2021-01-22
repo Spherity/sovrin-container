@@ -76,8 +76,8 @@ get_user_confirmation() {
     done
 }
 
-wallet_volume_name="sovrin-wallet"
-ledger_volume_name="sovrin-ledger"
+wallet_volume_name="ssi4de-wallet"
+ledger_volume_name="ssi4de-ledger"
 
 # parse the command options using getopt
 opts=$(getopt -o 'hve:c:' --longoptions 'help,verbose,engine:,config:' -n 'sovrin-setup' -- "$@")
@@ -207,7 +207,7 @@ if ! $engine build -t indy-cli ./indy-cli > /dev/null; then
 fi
 
 echo "Building validator image..."
-if ! $engine build -t validator ./validator > /dev/null; then
+if ! $engine build --build-arg "NETWORK_NAME=$pool_name" -t validator ./validator > /dev/null; then
     print_error "failed to build validator image"
     exit 1
 fi

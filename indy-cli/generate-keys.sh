@@ -27,7 +27,7 @@ check_argument() {
 }
 
 # parse the command options using getopt
-opts=$(getopt -o 'hvtsk:p:' --longoptions 'help,verbose,key,trustee,seed:,seed-path:' -n 'generate-keys' -- "$@")
+opts=$(getopt -o 'hvtk:s:p:' --longoptions 'help,verbose,key:,trustee,seed:,seed-path:' -n 'generate-keys' -- "$@")
 
 # exit if getopt throws an error
 if [ $? -ne 0 ]; then

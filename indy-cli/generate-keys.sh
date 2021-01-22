@@ -126,7 +126,7 @@ if [ ! -z "${trustee+x}" ]; then
 cat << EOF >> batch_file
 pool connect $pool_name
 wallet open $wallet_name key=$wallet_key
-did new seed=$seed meta=TRUSTEE
+did new seed=$seed metadata=TRUSTEE
 exit
 EOF
 else 
@@ -135,7 +135,7 @@ pool create $pool_name gen_txn_file=$POOL_GENESIS_FILE
 wallet create $wallet_name key=$wallet_key
 pool connect $pool_name
 wallet open $wallet_name key=$wallet_key
-did new seed=$seed meta=STEWARD
+did new seed=$seed metadata=STEWARD
 exit
 EOF
 

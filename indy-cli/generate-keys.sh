@@ -58,7 +58,7 @@ while true; do
             ;;
         '-t'|'--trustee')
             trustee=true
-            shift 2
+            shift
             continue
             ;;
         '-v'|'--verbose')
@@ -171,7 +171,7 @@ fi
 echo -e "\033[1;31mAttention\033[39;1m
 The seed and wallet key are very sensitive data and should be handled accordingly. Please store both in a secure manner.\033[0m\n"
 
-echo -e "\033[1;31mSteward seed:\033[0m $seed
+echo -e "\033[1;31mseed:\033[0m $seed
 \033[1;31mWallet key:\033[0m $wallet_key
 \033[1mDID:\033[0m $did
 \033[1mverkey:\033[0m $verkey"

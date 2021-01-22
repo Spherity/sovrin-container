@@ -139,8 +139,9 @@ wallet open $wallet_name key=$wallet_key
 did new seed=$seed metadata=STEWARD
 exit
 EOF
-
 fi
+
+cat batch_file
 
 echo "Generating keys..."
 

@@ -223,7 +223,7 @@ do
 done
 
 
-if [ ! -z "${wallet_key+x}" ]; then
+if [ -z "${wallet_key+x}" ]; then
     wallet_key=$(pwgen -s 32 1)
 fi
 

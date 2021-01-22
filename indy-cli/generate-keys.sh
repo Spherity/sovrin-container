@@ -27,7 +27,7 @@ check_argument() {
 }
 
 # parse the command options using getopt
-opts=$(getopt -o 'hvts:p:' --longoptions 'help,verbose,trustee,seed:,seed-path:' -n 'generate-keys' -- "$@")
+opts=$(getopt -o 'hvtsk:p:' --longoptions 'help,verbose,key,trustee,seed:,seed-path:' -n 'generate-keys' -- "$@")
 
 # exit if getopt throws an error
 if [ $? -ne 0 ]; then
@@ -41,6 +41,11 @@ eval set -- "$opts"
 # iterate over and parse the given flags
 while true; do
     case "$1" in
+        '-k'|'--key')
+            wallet_key=$2
+            shift 2
+            continue
+            ;;
         '-s'|'--seed')
             seed=$2
             shift 2
@@ -112,10 +117,6 @@ if [ ${#seed} != 32 ]; then
     exit 22
 fi
 
-# generate wallet encryption key
-wallet_key=$(pwgen -s 32 1)
-
-echo -e "\033[1;31mWallet key:\033[0m $wallet_key"
 
 #POOL_GENESIS_FILE=${POOL_GENESIS_FILE:-"pool_transactions_builder_genesis"}
 POOL_GENESIS_FILE=${POOL_GENESIS_FILE:-"ssi4de_pool_transactions_genesis"}

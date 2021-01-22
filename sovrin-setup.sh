@@ -222,6 +222,11 @@ do
     fi
 done
 
+
+if [ ! -z "${wallet_key+x}" ]; then
+    wallet_key=$(pwgen -s 32 1)
+fi
+
 # generate steward and node keys
 echo -e "\n*** Steward information ***"
 if [ -z "${steward_seed+x}" ]; then
@@ -231,7 +236,7 @@ else
     # using a file to do so hides it from the process list
     echo "$steward_seed" > "./steward_seed"
 
-    $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/steward_seed:/root/.indy_client/steward_seed indy-cli generate-keys "$pool_name" "$wallet_name" --seed-path=/root/.indy_client/steward_seed "$verbose"
+    $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/steward_seed:/root/.indy_client/steward_seed indy-cli generate-keys "$pool_name" "$wallet_name" --key $wallet_key --seed-path=/root/.indy_client/steward_seed "$verbose"
 fi
 
 echo -e "\n*** Trustee information ***"
@@ -242,7 +247,7 @@ else
     # using a file to do so hides it from the process list
     echo "$trustee_seed" > "./trustee_seed"
 
-    $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/trustee_seed:/root/.indy_client/trustee_seed indy-cli generate-keys "$pool_name" "$wallet_name" --trustee --seed-path=/root/.indy_client/trustee_seed "$verbose"
+    $engine run --rm -v $wallet_volume_name:/root/.indy_client -v $(pwd)/trustee_seed:/root/.indy_client/trustee_seed indy-cli generate-keys "$pool_name" "$wallet_name" --trustee --key $wallet_key --seed-path=/root/.indy_client/trustee_seed "$verbose"
 fi
 
 # check the exit code

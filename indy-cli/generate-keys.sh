@@ -53,7 +53,7 @@ while true; do
             ;;
         '-t'|'--trustee')
             trustee=true
-            shift
+            shift 2
             continue
             ;;
         '-v'|'--verbose')
